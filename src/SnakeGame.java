@@ -118,6 +118,15 @@ public class SnakeGame extends JFrame {
 
         @Override
         public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == 32){
+                if (timer.isRunning()) {
+                    timer.stop();
+                    timerToAddPoints.stop();
+                }else{
+                    timer.restart();
+                    timerToAddPoints.restart();
+                }
+            }
             if (e.getKeyCode() == 39){
                 if (scene.getSnake().getMovingDirection() != MovingDirection.LEFT) {
                     scene.changeSnakeMovingDirection(MovingDirection.RIGHT);

@@ -1,6 +1,5 @@
 import snakelib.Scene;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class GameScene extends Scene {
@@ -17,9 +16,8 @@ public class GameScene extends Scene {
         drawScene();
     }
 
+    @Override
     public void drawScene(){
-
-
         double cellWidth = (double)graphics.getClipBounds().width / (double)getMapWidth();
         double cellHeight = (double)graphics.getClipBounds().height / (double)getMapHeight();
 
@@ -41,8 +39,6 @@ public class GameScene extends Scene {
         }
 
         graphics.setColor(Color.BLUE);
-        //graphics.drawString(String.format("width: %d, hight: %d",graphics.getClipBounds().width, graphics.getClipBounds().height), 10, 10);
         graphics.drawString(String.format("Score: %d", getScore()), 10, 10);
-
     }
 }
