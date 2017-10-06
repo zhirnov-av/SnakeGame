@@ -94,8 +94,12 @@ public abstract class Scene {
         countItems += numItems;
     }
 
-    public void doNextSnakeStep() throws EndOfGameException{
-        this.snake.doNextStep();
+    public void doNextSnakeStep(){
+        try {
+            this.snake.doNextStep();
+        }catch (Exception e){
+            fireActionPerformed(SnakeGameEvent.END_OF_GAME);
+        }
     }
 
     public void changeSnakeMovingDirection(MovingDirection direction){

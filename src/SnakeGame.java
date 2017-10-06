@@ -83,13 +83,8 @@ public class SnakeGame extends JFrame {
     private class TimerListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                UpdateGame();
-                ((Timer)(e.getSource())).setDelay(delay);
-            }catch(EndOfGameException ex){
-                ((Timer)(e.getSource())).stop();
-                timerToAddPoints.stop();
-            }
+            updateGame();
+            ((Timer)(e.getSource())).setDelay(delay);
         }
     }
 
@@ -105,8 +100,12 @@ public class SnakeGame extends JFrame {
     private class MySnakeEventListener implements SnakeEventListener{
         @Override
         public void actionPerformed(SnakeGameEvent event) {
-            if (event.getEvent() == 1){
-                delay -= 1;
+            if (event == SnakeGameEvent.GOT_ITEM){
+                delay -= 1; // Snake will be move a little bit faster
+            }
+            if (event == SnakeGameEvent.END_OF_GAME){
+                timer.stop();
+                timerToAddPoints.stop();
             }
         }
     }
@@ -147,7 +146,7 @@ public class SnakeGame extends JFrame {
         }
     }
 
-    public void UpdateGame() throws EndOfGameException{
+    public void updateGame(){
         scene.doNextSnakeStep();
         panel.repaint(panel.getBounds());
     }

@@ -63,14 +63,10 @@ public class Snake {
         if ( scene.getMapData(headPosition.getX(), headPosition.getY()) == 1 ) {
             incLength(1);
             scene.removeItem(headPosition);
-
-            scene.fireActionPerformed(new SnakeGameEvent(1));
-
+            scene.fireActionPerformed(SnakeGameEvent.GOT_ITEM);
         }
         if (snakeLength != 0){
             snakeBody.addFirst(new CellPosition(headPosition.getX(), headPosition.getY()));
-            //snakeBody.getFirst().setX(headPosition.getX());
-            //snakeBody.getFirst().setY(headPosition.getY());
             if (!this.incrementingLength) {
                 snakeBody.removeLast();
             }else{
