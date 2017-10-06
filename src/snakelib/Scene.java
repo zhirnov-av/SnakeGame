@@ -14,25 +14,16 @@ public abstract class Scene {
     protected SnakeEventListener listener = null;
 
     public Scene(int width, int height, SnakeEventListener listener){
-        map = new byte[width][height];
-        mapHeight = height;
-        mapWidth = width;
-        score = 0;
-        initializeScene();
-        snake = new Snake(MovingDirection.UP, mapWidth/2, mapHeight/2, this);
-        countItems = 0;
-        if (listener.getClass() == SnakeEventListener.class)
-            this.listener = listener;
+        this(width, height);
+        this.listener = listener;
     }
 
     public Scene(int width, int height) {
-
         map = new byte[width][height];
         mapHeight = height;
         mapWidth = width;
-
         initializeScene();
-        snake = new Snake(MovingDirection.UP, mapWidth / 2, mapHeight / 2, this);
+        snake = new Snake(MovingDirection.UP, mapWidth/2, mapHeight/2, this);
     }
 
     public void initializeScene(){
@@ -96,17 +87,15 @@ public abstract class Scene {
 
     public void doNextSnakeStep(){
         try {
-            this.snake.doNextStep();
+            this.snake.doNextStep(); //If exception end of game, we must generate this event
         }catch (Exception e){
-            fireActionPerformed(SnakeGameEvent.END_OF_GAME);
+            fireActionPerformed(SnakeGameEvent.END_OF_GAME); // calling event listener
         }
     }
 
     public void changeSnakeMovingDirection(MovingDirection direction){
         this.snake.setMovingDirection(direction);
     }
-
-    public abstract void drawScene();
 
     public Snake getSnake() {
         return snake;
@@ -136,4 +125,6 @@ public abstract class Scene {
     public int getCountItems() {
         return countItems;
     }
+
+    public abstract void drawScene(); // method to draw game scene and snake
 }
